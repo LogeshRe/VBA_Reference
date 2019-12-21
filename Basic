@@ -34,5 +34,22 @@ On Error Resume Next
   Worksheet_instance.ShowAllData
 On Error GoTo 0
 
+'To clear data
+
+Worksheet_instance.Range("A2:B6").Clear
+
+'To find last active row (returns row number)
+
+Worksheet_instance.Cells(Rows.Count, 1).End(xlUp).Row
+
+' to use variable in range function
+
+Worksheet_instance.Range("A4:O" & n)
+
+'Add work sheet Filter using color
+
+Worksheet_instance.Range("A:A").AutoFilter Field:=1, Criteria1:=RGB(255, 255, 0), Operator:=xlFilterCellColor
+
+
 
 
