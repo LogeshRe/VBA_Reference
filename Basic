@@ -1,0 +1,38 @@
+
+'Function call for file opening
+
+Function opener(a)
+filetoopen = Application _
+    .GetOpenFilename(FileFilter:="ExcelFiles,*.xl*; *.xm", Title:=a)    
+If filetoopen <> False Then
+    Workbooks.Open filetoopen
+    ActiveWorkbook.RunAutoMacros xlAutoOpen
+End If
+opener = Right(filetoopen, Len(filetoopen) - InStrRev(filetoopen, "\", Len(filetoopen)))
+End Function
+
+'Initialise Workbook and Worksheet
+
+Dim Workbook_instance As Workbook, Worksheet_instance As Worksheet
+Workbook_name = opener("Please select Workbook")
+Set Workbook_instance = Workbooks(Workbook_name)
+Set Worksheet_instance = Workbook_instance.Sheet("Sheet_Name")
+
+
+'Save Excel
+
+path = "C:\Users\Logesh\" + "File_name"
+Workbook_instance.SaveCopyAs(pathorg)
+
+'Close Excel
+
+Workbook_instance.Close savechanges:=False
+
+'To Remove Filter
+
+On Error Resume Next
+  Worksheet_instance.ShowAllData
+On Error GoTo 0
+
+
+
